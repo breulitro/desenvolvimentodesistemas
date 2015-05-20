@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<center>
+		<div class="panel panel-default" style="width: 40%">
+			<div class="panel-heading">
+				Selecione um Paciente
+			</div>
+			<div class="panel-body">
+				<select>
+					{% for patient in patients %}
+						<option value="{{ patient.pk }}">{{ patient.name }} {{ patient.lastname }}</option>
+					{% endfor %}
+				</select>
+				<br/>
+				<br/>
+				<button id="listSensorsButton" class="btn btn-success" autocomplete="off" type="button">
+					Listar Sensores
+				</button>
+			</div>
+		</div>
+	</center>
+{% endblock %}

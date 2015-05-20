@@ -1,0 +1,36 @@
+{% load staticfiles %}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<style type='text/css'>
+	#left_div {
+		float: left;
+		width: 50%;
+		text-align: center;
+		background-color: #f2ebdf;
+	}
+
+	#right_div {
+		float: right;
+		width: 50%;
+		background-color: #f0ebd0;
+		text-align: center;
+	}
+
+</style>
+
+<html>
+	<body>
+		<div class="header" style="height: 200px; width: 100%">
+		</div>
+		{% block content %}
+		<h1>
+			Under Construction
+		</h1>
+		{% endblock %}
+	</body>
+</html>

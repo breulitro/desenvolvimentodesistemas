@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div id="left_div">
+		<div class="panel panel-primary" style="width: 70%; float: right">
+			<div class="panel-heading">
+				Dados do Paciente
+			</div>
+			<div class="panel-body">
+				Nome: {{ patient.name }} {{ patient.lastname }}
+				<br/>
+				Sexo: {{ patient.gender }}
+				<br/>
+				Data de Nasc.: {{ patient.date_of_birth }}
+				<br/>
+				Endereço: {{ address }}
+				<br/>
+			</div>
+		</div>
+	</div>
+
+	<div id="right_div">
+		<div class="panel panel-primary" style="width: 40%; float: right; margin-right: 20%">
+			<div class="panel-heading">
+				Sensores Disponíveis
+			</div>
+			<div class="panel-body">
+				<div class="list-group">
+					<a href="{% url 'blood_pressure_sensor' patient.pk %}" class="list-group-item">Sensor de Pressão</a>
+				<br/>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
