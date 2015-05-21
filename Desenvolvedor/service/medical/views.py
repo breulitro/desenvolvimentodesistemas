@@ -15,6 +15,7 @@ def sensors_list(request, patient_pk):
 
 ###########################################################
 def blood_pressure_sensor(request, patient_pk):
-	return render(request, 'medical/construction.html')
+	patient = Patient.objects.get(pk = patient_pk)
+	return render(request, 'medical/pressure_sensor.html', {'patient': patient, 'value_high': '10', 'value_low': '5'})
 
 ###########################################################

@@ -21,12 +21,26 @@
 		text-align: center;
 	}
 
+	p {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 2.5em;
+	}
+
 </style>
 
 <html>
 	<body>
-		<div class="header" style="height: 200px; width: 100%">
-		</div>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li><a href="{% url 'index' %}">Início</a></li>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+
+
 		{% block content %}
 		<h1>
 			Under Construction
@@ -34,3 +48,13 @@
 		{% endblock %}
 	</body>
 </html>
+
+
+<script type='text/javascript'>
+	function selectPatient() {
+		var e = document.getElementById("patientSelection");
+		var str = e.options[e.selectedIndex].value;
+		var url = "/medical/sensors_list/" + str;
+		window.open(url, "_self");
+	}
+</script>
