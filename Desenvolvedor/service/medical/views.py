@@ -23,7 +23,7 @@ def blood_pressure_sensor(request, patient_pk):
 	high = -1
 	low = -1
 
-	sensor_address = '127.0.0.1'
+	sensor_address = '169.254.164.81'
 	sensor_port = 8888
 	max_size = 1024
 
@@ -53,7 +53,7 @@ def temperature_sensor(request, patient_pk):
 
 	value = -1
 
-	sensor_address = '127.0.0.1'
+	sensor_address = '169.254.164.81'
 	sensor_port = 8888
 	max_size = 1024
 

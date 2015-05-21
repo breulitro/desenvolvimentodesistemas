@@ -1,10 +1,10 @@
 {% load staticfiles %}
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
 {% load bootstrap3 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+
+<script src="{% static "jquery.min.js" %}"></script>
+<link href="{% static "bootstrap.min.css" %}" media="all" rel="stylesheet">
+<script src="{% static "bootstrap.min.js" %}"></script>
+
 
 <style type='text/css'>
 	#ph1 {
