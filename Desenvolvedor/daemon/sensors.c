@@ -8,16 +8,6 @@
 
 #define MAX_LEN_MSG	2000
 
-void get_pressure(int *high, int *low) {
-	*high = rand() % 20;
-
-	if (*high < 6)
-		*high = 6;
-
-	*low = rand() % *high;
-	if (*low < (*high / 2))
-		*low = *high / 2;
-}
 
 // get_pressure_json allocs memory and the user of this function should free it.
 char *get_pressure_json() {
@@ -25,10 +15,9 @@ char *get_pressure_json() {
 	char *json_data;
 
 	json_data = malloc((strlen("{\"data_name\": \"pressure\", \"value_high\": \"XX\", \"value_low\": \"XX\"}") + 1) * sizeof(char));
-	high = 0;
-	low = 0;
 
-	get_pressure(&high, &low);
+	high = rand() % (20 - 12 + 1) + 12;
+	low = rand() % (12 - 1 + 1) + 1;
 	sprintf(json_data, "{\"data_name\": \"pressure\", \"value_high\": \"%d\", \"value_low\": \"%d\"}", high, low);
 
 	return json_data;
@@ -41,16 +30,12 @@ char *get_temperature_json() {
 
 	json_data = malloc((strlen("{\"data_name\": \"temperature\", \"value\": \"XX\"}") + 1) * sizeof(char));
 
-	value = rand() % 45;
-
-	if (value < 35)
-		value = (45 - value) + 35;
+	value = rand() % (45 - 35 + 1) + 35;
 
 	sprintf(json_data, "{\"data_name\": \"temperature\", \"value\": \"%d\"}", value);
 
 	return json_data;
 }
-
 
 int main(int argc, char* argv[]) {
 	int socket_desc, client_sock, c, read_size;
@@ -59,7 +44,6 @@ int main(int argc, char* argv[]) {
 	char *json_data = NULL;
 	const char *cmd_error = "{\"error\": \"command not found\"}";
 	int high, low;
-
 
 
 	// Create socket

@@ -43,3 +43,26 @@ def blood_pressure_sensor(request, patient_pk):
 	return render(request, 'medical/pressure_sensor.html', {'patient': patient, 'value_high': high, 'value_low': low})
 
 ###########################################################
+def temperature_sensor(request, patient_pk):
+	patient = Patient.objects.get(pk = patient_pk)
+
+	sensor_address = '127.0.0.1'
+	sensor_port = 8888
+	max_size = 1024
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	s.connect((sensor_address, sensor_port))
+	s.send("get_temperature")
+	data = s.recv(max_size)
+	s.close()
+
+	value = 0
+	try:
+		ret_val = json.loads(data)
+		value = ret_val['value']
+	except:
+		print "Data: %s" % data
+		value = -1
+
+	return render(request, 'medical/temperature_sensor.html', {'patient': patient, 'value': value})
+
+###########################################################
