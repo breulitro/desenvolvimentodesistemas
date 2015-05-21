@@ -24,15 +24,33 @@ char *get_pressure_json() {
 	int high, low;
 	char *json_data;
 
-	json_data = malloc((strlen("{\"data_name\": \"pressure\", \"value\": \"XX;XX\"}") + 1) * sizeof(char));
+	json_data = malloc((strlen("{\"data_name\": \"pressure\", \"value_high\": \"XX\", \"value_low\": \"XX\"}") + 1) * sizeof(char));
 	high = 0;
 	low = 0;
 
 	get_pressure(&high, &low);
-	sprintf(json_data, "{\"data_name\": \"pressure\", \"value\": \"%d;%d\"}", high, low);
+	sprintf(json_data, "{\"data_name\": \"pressure\", \"value_high\": \"%d\", \"value_low\": \"%d\"}", high, low);
 
 	return json_data;
 }
+
+// get_temperature_json allocs memory and the user of this function should free it.
+char *get_temperature_json() {
+	int value;
+	char *json_data;
+
+	json_data = malloc((strlen("{\"data_name\": \"temperature\", \"value\": \"XX\"}") + 1) * sizeof(char));
+
+	value = rand() % 45;
+
+	if (value < 35)
+		value = (45 - value) + 35;
+
+	sprintf(json_data, "{\"data_name\": \"temperature\", \"value\": \"%d\"}", value);
+
+	return json_data;
+}
+
 
 int main(int argc, char* argv[]) {
 	int socket_desc, client_sock, c, read_size;
@@ -86,8 +104,15 @@ int main(int argc, char* argv[]) {
 		if (read_size > 0)	{
 			//Send the message back to client
 			printf("DEBUG: %s\n", client_message);
-			if (strncmp(client_message, "get", 3) == 0) {
+			if (strncmp(client_message, "get_pressure", 12) == 0) {
 				json_data = get_pressure_json();
+				write(client_sock, json_data, strlen(json_data));
+
+				if (json_data != NULL)
+					free(json_data);
+			}
+			else if (strncmp(client_message, "get_temperature", 15) == 0) {
+				json_data = get_temperature_json();
 				write(client_sock, json_data, strlen(json_data));
 
 				if (json_data != NULL)

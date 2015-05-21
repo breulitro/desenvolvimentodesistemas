@@ -4,25 +4,33 @@
 	<br/>
 	<br/>
 	<div id="left_div">
-		<div class="panel panel-primary" style="width: 70%; float: right">
+		<div class="panel panel-primary" style="width: 80%; float: right">
 			<div class="panel-heading">
 				Dados do Paciente
 			</div>
 			<div class="panel-body">
-				Nome: {{ patient.name }} {{ patient.lastname }}
-				<br/>
-				Sexo: {{ patient.gender }}
-				<br/>
-				Data de Nasc.: {{ patient.date_of_birth }}
-				<br/>
-				Endereço: {{ address }}
+				<div id="ph1">
+					&nbsp;
+				</div>
+				<div id="patient_info">
+					<b>Nome:</b> {{ patient.name }} {{ patient.lastname }}
+					<br/>
+					<b>Sexo:</b> {{ patient.gender }}
+					<br/>
+					<b>Data de Nasc.:</b> {{ patient.date_of_birth }}
+					<br/>
+					<b>Endereço:</b> {{ address }}
+				</div>
+				<div id="ph1">
+					&nbsp;
+				</div>
 				<br/>
 			</div>
 		</div>
 	</div>
 
 	<div id="right_div">
-		<div class="panel panel-primary" style="width: 40%; float: right; margin-right: 20%">
+		<div class="panel panel-primary" style="width: 80%; float: right; margin-right: 20%">
 			<div class="panel-heading">
 				Sensores Disponíveis
 			</div>

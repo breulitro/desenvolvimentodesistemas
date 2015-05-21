@@ -30,5 +30,5 @@ class Address(models.Model):
 	patient = models.OneToOneField(Patient, null=True, blank=True)
 
 	def __unicode__(self):
-		return "%s, %s (%s)" % (self.address1, self.number, self.city)
+		return "%s, %s" % (self.address1, self.number)
 
