@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<br/>
+	<br/>
+	<center>
+		<div class="panel panel-primary" style="width: 50%; text-align: center">
+			<div class="panel-heading">
+				Temperatura Corporal: {{ patient.name }} {{ patient.lastname }}
+			</div>
+			<div class="panel-body">
+				<br/>
+				<p>{{ value }} &deg;C</p>
+				<br/>
+			</div>
+		</div>
+		<br/>
+
+		<button id="refreshButton" class="btn btn-primary" autocomplete="off" type="button" onClick="history.go(0)" value="Refresh">
+			Atualizar Dados
+		</button>
+	</center>
+
+{% endblock %}
