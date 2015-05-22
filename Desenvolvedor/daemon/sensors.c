@@ -37,6 +37,20 @@ char *get_temperature_json() {
 	return json_data;
 }
 
+// get_heartbeat_json allocs memory and the user of this function should free it.
+char *get_heartbeat_json() {
+	int value;
+	char *json_data;
+
+	json_data = malloc((strlen("{\"data_name\": \"heartbeat\", \"value\": \"XXX\"}") + 1) * sizeof(char));
+
+	value = rand() % (240 - 65 + 1) + 65;
+
+	sprintf(json_data, "{\"data_name\": \"heartbeat\", \"value\": \"%d\"}", value);
+
+	return json_data;
+}
+
 int main(int argc, char* argv[]) {
 	int socket_desc, client_sock, c, read_size;
 	struct sockaddr_in server , client;
@@ -97,6 +111,13 @@ int main(int argc, char* argv[]) {
 			}
 			else if (strncmp(client_message, "get_temperature", 15) == 0) {
 				json_data = get_temperature_json();
+				write(client_sock, json_data, strlen(json_data));
+
+				if (json_data != NULL)
+					free(json_data);
+			}
+			else if (strncmp(client_message, "get_heartbeat", 13) == 0) {
+				json_data = get_heartbeat_json();
 				write(client_sock, json_data, strlen(json_data));
 
 				if (json_data != NULL)
