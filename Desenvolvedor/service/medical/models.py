@@ -7,6 +7,9 @@ GENDERCHOICE = (
 	('F', 'Female'),
 )
 
+class AccessCounter(models.Model):
+	access_date = models.DateField()
+
 class Patient(models.Model):
 	email = models.EmailField(max_length=80, unique=True)
 	name = models.CharField(max_length=80)

@@ -20,3 +20,7 @@ CREATE TABLE "medical_address" (
 	"state" varchar(200) NOT NULL,
 	"patient_id" integer NULL UNIQUE REFERENCES "medical_patient" ("id")
 	);
+
+CREATE TABLE "medical_accesscounter" (
+	"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "access_date" date NOT NULL
+	);
