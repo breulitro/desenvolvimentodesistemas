@@ -4,6 +4,9 @@ from .models import *
 import json
 import socket
 
+SENSOR_IP = '127.0.0.1'
+#sensor_address = '169.254.164.81'
+SENSOR_PORT = 8888
 
 def index(request):
 	patients = Patient.objects.all()
@@ -23,8 +26,8 @@ def blood_pressure_sensor(request, patient_pk):
 	high = -1
 	low = -1
 
-	sensor_address = '169.254.164.81'
-	sensor_port = 8888
+	sensor_address = SENSOR_IP
+	sensor_port = SENSOR_PORT
 	max_size = 1024
 
 	try:
@@ -53,8 +56,8 @@ def temperature_sensor(request, patient_pk):
 
 	value = -1
 
-	sensor_address = '169.254.164.81'
-	sensor_port = 8888
+	sensor_address = SENSOR_IP
+	sensor_port = SENSOR_PORT
 	max_size = 1024
 
 	try:
@@ -81,8 +84,8 @@ def heartbeat_sensor(request, patient_pk):
 
 	value = -1
 
-	sensor_address = '169.254.164.81'
-	sensor_port = 8888
+	sensor_address = SENSOR_IP
+	sensor_port = SENSOR_PORT
 	max_size = 1024
 
 	try:
@@ -103,4 +106,53 @@ def heartbeat_sensor(request, patient_pk):
 
 	return render(request, 'medical/heartbeat_sensor.html', {'patient': patient, 'value': value})
 
+###########################################################
+def all_sensors(request, patient_pk):
+	patient = Patient.objects.get(pk = patient_pk)
 
+	heartbeat = -1
+	temperature = -1
+	high = -1
+	low = -1
+
+	sensor_address = SENSOR_IP
+	sensor_port = SENSOR_PORT
+	max_size = 1024
+
+	try:
+		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		s.connect((sensor_address, sensor_port))
+		s.send("get_heartbeat")
+		data1 = s.recv(max_size)
+
+		s.send("get_temperature")
+		data2 = s.recv(max_size)
+
+		s.send("get_pressure")
+		data3 = s.recv(max_size)
+
+		s.close()
+	except:
+		return render(request, 'medical/all_sensors.html', {'patient': patient, 'temperature': temperature, 'heartbeat': heartbeat, 'value_high': high, 'value_low': low})
+
+	try:
+		ret_val = json.loads(data1)
+		heartbeat = ret_val['value']
+	except:
+		heartbeat = -1
+
+	try:
+		ret_val = json.loads(data2)
+		temperature = ret_val['value']
+	except:
+		temperature = -1
+
+	try:
+		ret_val = json.loads(data3)
+		high = ret_val['value_high']
+		low = ret_val['value_low']
+	except:
+		high = -1
+		low = -1
+
+	return render(request, 'medical/all_sensors.html', {'patient': patient, 'temperature': temperature, 'heartbeat': heartbeat, 'value_high': high, 'value_low': low})

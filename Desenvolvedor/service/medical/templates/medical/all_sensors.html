@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<center>
+		<h3>Sensores de {{ patient.name }} {{ patient.lastname }}</h3>
+		<br/>
+		<div class="panel panel-primary" style="width: 50%; text-align: center">
+			<div class="panel-heading">
+				Batimentos Cardíacos
+			</div>
+			<div class="panel-body">
+				<br/>
+				<p>{{ heartbeat }} BPMs</p>
+				<br/>
+			</div>
+		</div>
+		<br/>
+	</center>
+	<center>
+		<div class="panel panel-primary" style="width: 50%; text-align: center">
+			<div class="panel-heading">
+				Pressão Sanguínea
+			</div>
+			<div class="panel-body">
+				<br/>
+				<p>Alta: {{ value_high }}</p>
+				<p>Baixa: {{ value_low }}</p>
+				<br/>
+			</div>
+		</div>
+		<br/>
+	</center>
+	<center>
+		<div class="panel panel-primary" style="width: 50%; text-align: center">
+			<div class="panel-heading">
+				Temperatura Corporal
+			</div>
+			<div class="panel-body">
+				<br/>
+				<p>{{ temperature }} &deg;C</p>
+				<br/>
+			</div>
+		</div>
+		<br/>
+
+
+		<button id="refreshButton" class="btn btn-primary" autocomplete="off" type="button" onClick="history.go(0)" value="Refresh">
+			Atualizar Dados
+		</button>
+	</center>
+
+{% endblock %}
