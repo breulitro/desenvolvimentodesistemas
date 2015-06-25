@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from datetime import datetime
 
 GENDERCHOICE = (
 	('M', 'Male'),
@@ -8,7 +9,10 @@ GENDERCHOICE = (
 )
 
 class AccessCounter(models.Model):
-	access_date = models.DateField()
+	date = models.DateField(blank=False, default=datetime.now)
+
+	def __unicode__(self):
+		return "%s" % (self.date.strftime("%d.%m.%Y"))
 
 class Patient(models.Model):
 	email = models.EmailField(max_length=80, unique=True)

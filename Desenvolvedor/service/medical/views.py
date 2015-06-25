@@ -1,17 +1,31 @@
 from django.shortcuts import render
+from datetime import datetime
+
 from .models import *
 
 import json
 import socket
 
 SENSOR_IP = '127.0.0.1'
-#sensor_address = '169.254.164.81'
+#SENSOR_IP = '169.254.164.81'
 SENSOR_PORT = 8888
 
 def index(request):
+	access_log = AccessCounter()
+	access_log.save()
+
 	patients = Patient.objects.all()
 
 	return render(request, 'medical/patient_list.html', {'patients': patients})
+
+###########################################################
+def access_log(request):
+	date = datetime.now
+	day = AccessCounter.objects.filter(date = date)
+	month = AccessCounter.objects.filter(date = date)
+	year = AccessCounter.objects.filter(date = date)
+
+	return render(request, 'medical/access_log.html', {'day': len(day), 'month': len(month), 'year': len(year)})
 
 ###########################################################
 def sensors_list(request, patient_pk):

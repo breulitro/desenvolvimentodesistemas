@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<br/>
+	<br/>
+	<center>
+		<div class="panel panel-primary" style="width: 50%; text-align: center">
+			<div class="panel-heading">
+				Relatório de Accessos
+			</div>
+			<div class="panel-body">
+				<div class="list-group">
+					<p class="list-group-item">Acessos no Dia: {{ day }}</p>
+					<p class="list-group-item">Acessos no Mês: {{ month }}</p>
+					<p class="list-group-item">Acessos no Ano: {{ year }}</p>
+				</div>
+			</div>
+		</div>
+		<br/>
+
+		<button id="refreshButton" class="btn btn-primary" autocomplete="off" type="button" onClick="history.go(0)" value="Refresh">
+			Atualizar
+		</button>
+	</center>
+
+{% endblock %}
