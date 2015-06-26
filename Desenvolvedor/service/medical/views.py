@@ -20,10 +20,10 @@ def index(request):
 
 ###########################################################
 def access_log(request):
-	date = datetime.now
+	date = datetime.now()
 	day = AccessCounter.objects.filter(date = date)
-	month = AccessCounter.objects.filter(date = date)
-	year = AccessCounter.objects.filter(date = date)
+	month = AccessCounter.objects.filter(date__month = date.month)
+	year = AccessCounter.objects.filter(date__year = date.year)
 
 	return render(request, 'medical/access_log.html', {'day': len(day), 'month': len(month), 'year': len(year)})
 
